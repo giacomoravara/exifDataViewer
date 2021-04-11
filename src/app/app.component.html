@@ -1,0 +1,65 @@
+<!--HOME PAGE-->
+<div class="container-fluid align-items-center" *ngIf="activePage==='main'">
+<div class="row d-flex align-items-center justify-content-center p-4 main-div">
+  <div class="col-12 col-md-10">
+
+    <!--MAIN CARD-->
+    <div class="card">
+        <div class="row justify-content-between p-4">
+          <div class="col-12 col-md-6 m-2 d-flex align-items-center justify-content-center">
+            
+            <!--TITLE AND DESCRIPTION DIV-->
+            <div>
+              <h1>EXIF DATA VIEWER</h1>
+              <p class="card-text">Exif Data Viewer is a tool for extracting the exif metadata that is embedded in photos taken with digital cameras and stored in JPEG format. Exif stands for "exchangeable image file format" and represents the metadata the is embeded in photos by digital camera manufacturers.</p>
+            </div>  
+          </div>
+          <div class="col-12 col-md-5 d-flex align-items-center justify-content-center">
+            
+            <!--INPUT BUTTON-->
+            <button type="button" class="btn btn-lg btn-dark" (click)="imageInput.click()">Click here to upload the image</button>
+            <input hidden type="file" #imageInput accept="image/jpeg, image/tiff" (change)="uploadImage($event)">
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--EXIF DATA PAGE-->
+
+<div  *ngIf="activePage==='exif'" class="container-fluid exif-container">
+  <div class="row align-items-center p-1 main-div justify-content-center">
+    <div class="col-12">
+      <div class="card">
+          <div class="row justify-content-center p-sm-1 p-md-1">
+            <div class="col-12 col-md-7">
+
+              <!--BUTTONS WITH IMAGE OPERATION -->
+              <div class="p-3">  
+                <button type="button" class="btn btn-light m-2" (click)="imageInput.click()" data-toggle="tooltip" data-placement="top" title="Change Image">
+                  <img src="../assets/plus-circle.svg"/>
+                </button>
+                <input hidden type="file" #imageInput accept="image/jpeg, image/tiff"  (change)="uploadImage($event)">
+                <button type="button" class="btn btn-light m-2" color="black" *ngIf="maps" data-toggle="tooltip" data-placement="top" title="See where this photo was taken">
+                <a href='{{maps}}'> <img src="../assets/geo-alt-fill.svg"/></a> 
+                </button>
+                <button type="button" class="btn btn-light m-2" (click)="rotate()"  data-toggle="tooltip" data-placement="top" title="Rotate Image 90 degrees"><img src="../assets/arrow-clockwise.svg"/></button>
+              </div>
+              <div class="row">
+              <div  #imageDiv class="embed-responsive embed-responsive-1by1 col-12 d-flex justify-content-center align-items-center">
+                <div id="image-div" class="d-flex justify-content-center align-items-center" *ngIf="previewUrl">
+                <img #img id="image" [src]="previewUrl" (load)="getExif($event)"/> 
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-5 d-flex justify-content-center align-items-center exif-wrapper" *ngIf="!hideExif">
+          <!--EXIF DATA COMPONENT-->
+          <app-efix-data [output]="this.output" [keys]="this.keys"></app-efix-data> 
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  </div>

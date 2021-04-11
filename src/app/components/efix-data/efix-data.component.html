@@ -1,0 +1,17 @@
+
+<div class="tableFixHead table-sm table-responsive">
+    <table class="table">
+      <thead>
+          <tr>
+          <th scope="col">Tag</th>
+          <th scope="col">Value</th>
+        </tr>
+      </thead>
+      <tbody >
+          <tr *ngFor="let key of keys">
+            <td scope="row">{{key}}</td>
+            <td scope="row">{{output[key]}}</td>
+          </tr>
+      </tbody>
+      </table>
+    </div>
